@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">iTarea</string>
+    <string name="image">image</string>
+    <string name="Correo">Correo Electrónico</string>
+    <string name="Contrasena">Contraseña</string>
+    <string name="Iniciar">INICIAR SESIÓN</string>
+    <string name="cuenta">¿Aún no tienes una cuenta?</string>
+    <string name="sesion">Mantener la sesión iniciada</string>
+    <string name="crearc">CREAR CUENTA</string>
+    <string name="cc">Crear una cuenta</string>
+    <string name="nombre">Nombre</string>
+    <string name="usuario">Usuario</string>
+    <string name="apellido">Apellidos</string>
+    <string name="matricula">Matricula</string>
+    <string name="Salon">Encuentra tu salón</string>
+    <string name="anadir">Añadir</string>
+    <string name="cerrar">Cerrar Sesión</string>
+    <string name="act">Actividades Pendientes De</string>
+    <string name="descripcion">Descripción</string>
+    <string name="regresar">Regresar</string>
+    <string name="delGrupo">Eliminar Grupo</string>
+    <string name="codInv">Codigo de invitacion</string>
+
+    <string name="Salon1">Salón1</string>
+    <string name="Salon2">Salón2</string>
+    <string name="Salon3">Salón3</string>
+    <string name="Salon4">Salón4</string>
+    <string name="Act1">Actividad 1</string>
+    <string name="Act2">Actividad 2</string>
+    <string name="Act3">Actividad 3</string>
+    <string name="Act4">Actividad 4</string>
+
+    <string name="crearSalon">Crear salón</string>
+    <string name="nomSalon">Nombre del salón</string>
+    <string name="selectCarrera">Selecciona tu Ingeniería</string>
+    <string name="selectSemestre">Selecciona el semestre</string>
+    <string name="materias">Materias:</string>
+    <string name="probMaterias">*</string>
+    <string name="crear">Crear</string>
+    <string name="crearAct">Crear Actividad</string>
+    <string name="nombreAct">Nombre de la actividad</string>
+    <string name="selectMateria">Selecciona una materia</string>
+    <string name="selectTipo">Tipo de actividad</string>
+    <string name="rbTarea">Tarea</string>
+    <string name="rbProyecto">Proyecto</string>
+    <string name="rbExamen">Examen</string>
+    <string name="selectFecha">Selecciona la fecha de entrega</string>
+    <string name="prefStatus">loginstate</string>
+
+</resources>

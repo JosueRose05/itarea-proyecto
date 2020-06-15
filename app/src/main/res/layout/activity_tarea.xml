@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TareaActivity">
+
+    <ImageView
+        android:id="@+id/imgFondo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:srcCompat="@mipmap/fondo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtNombreAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/nombreAct"
+                android:inputType="textPersonName"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/input"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"/>
+
+            <EditText
+                android:id="@+id/txtDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="154dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:gravity="start|top"
+                android:hint="@string/descripcion"
+                android:inputType="textMultiLine"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/input"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tvSelectMateria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/selectMateria"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spnMateria"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/input"
+                android:textColor="@color/text"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSelectTipoT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/selectTipo"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/RadioGroup1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbTarea"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rbTarea"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    android:buttonTint="@color/white"/>
+
+                <RadioButton
+                    android:id="@+id/rbProyecto"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rbProyecto"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    android:buttonTint="@color/white"/>
+
+                <RadioButton
+                    android:id="@+id/rbExamen"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rbExamen"
+                    android:textColor="@color/text"
+                    android:textSize="16sp"
+                    android:buttonTint="@color/white"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tvSelectFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="@string/selectFecha"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="289dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="@color/white"
+                android:theme="@style/CalenderViewCustom"
+                android:dateTextAppearance="@style/CalenderViewDateCustomText"
+                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"/>
+
+            <Button
+                android:id="@+id/btnCrearAct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn_redondeado_white"
+                android:onClick="creatarea"
+                android:text="@string/crear"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/btnRegresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/regresar"
+        android:onClick="regresar"
+        android:padding="10dp"
+        android:tint="#FFFFFF"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+</RelativeLayout>
