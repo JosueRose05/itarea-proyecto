@@ -32,6 +32,8 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -94,9 +96,16 @@ public class LoginActivity extends AppCompatActivity {
                 String prueba = res;
                 if (prueba.toLowerCase().trim().equals("exito")){
                     alumno.cargarDatos(correo);
-                    Toast.makeText(LoginActivity.this, "Bienvenido "+alumno.getNombre(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                    startActivity(intent);
+                    final Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    TimerTask tarea = new TimerTask() {
+                        @Override
+                        public void run() {
+                            LoginActivity.this.startActivity(intent);
+                        }
+                    };
+                    Timer tiempo = new Timer();
+                    tiempo.schedule(tarea,1090);
+
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     if (checkedStatus.isChecked()){

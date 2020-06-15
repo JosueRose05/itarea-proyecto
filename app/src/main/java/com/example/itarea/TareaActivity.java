@@ -64,7 +64,6 @@ public class TareaActivity extends AppCompatActivity {
                 materias.setAdapter(adapter);
             }
         }, 2500);
-
         etNombre = (EditText) findViewById(R.id.txtNombreAct);
         etDesc = (EditText) findViewById(R.id.txtDescripcion);
         rbG = (RadioGroup) findViewById(R.id.RadioGroup1);
@@ -77,6 +76,7 @@ public class TareaActivity extends AppCompatActivity {
             }
         });
     }
+    //Hola leo
     public void creatarea(View view){
         String nombre = etNombre.getText().toString();
         String desc = etDesc.getText().toString();
