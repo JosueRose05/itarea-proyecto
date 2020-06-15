@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 String prueba = res;
                 if (prueba.toLowerCase().trim().equals("exito")){
                     alumno.cargarDatos(correo);
-                    Toast.makeText(LoginActivity.this, "Bienvenido "+alumno.getNombre(), Toast.LENGTH_SHORT).show();
                     final Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                     TimerTask tarea = new TimerTask() {
                         @Override
