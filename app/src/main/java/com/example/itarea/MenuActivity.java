@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.example.itarea.MODELOS.GrupoModelo;
 public class MenuActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    private EditText CodI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         GrupoModelo grupos = new GrupoModelo(MenuActivity.this);
         //Mostramos los grupos en la activity
         grupos.getGrupos(alumno.getMatricula(), botonesLayout);
+        CodI = (EditText) findViewById(R.id.txtCodInv);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -58,5 +62,12 @@ public class MenuActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void ingresarSalon(View view){
+        AlumnoModelo alumno = new AlumnoModelo(this);
+        GrupoModelo grupo = new GrupoModelo(this);
+        int codigo = Integer.parseInt(CodI.getText().toString());
+        grupo.ingresarGrupo(alumno.getMatricula(), codigo);
     }
 }

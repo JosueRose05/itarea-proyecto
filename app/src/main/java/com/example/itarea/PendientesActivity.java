@@ -2,6 +2,7 @@ package com.example.itarea;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -67,9 +68,10 @@ public class PendientesActivity extends AppCompatActivity {
                 startActivity(intent);//No hay que terminar esta activity, si no vale verga
                 break;
             case R.id.itmCerrar:
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(getResources().getString(R.string.prefStatus),"logout");
-                editor.apply();
+                SharedPreferences preferencias = this.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor objEditor = preferencias.edit();
+                objEditor.putString(getResources().getString(R.string.prefStatus),"logout");
+                objEditor.apply();
                 startActivity(new Intent(PendientesActivity.this,LoginActivity.class));
                 finish();
                 break;

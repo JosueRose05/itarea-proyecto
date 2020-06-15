@@ -96,17 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 String prueba = res;
                 if (prueba.toLowerCase().trim().equals("exito")){
                     alumno.cargarDatos(correo);
-                    final Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-                    TimerTask tarea = new TimerTask() {
-                        @Override
-                        public void run() {
-                            LoginActivity.this.startActivity(intent);
-                        }
-                    };
-                    Timer tiempo = new Timer();
-                    tiempo.schedule(tarea,1090);
-
-
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     if (checkedStatus.isChecked()){
                         editor.putString(getResources().getString(R.string.prefStatus),"loggeado");
@@ -115,7 +104,16 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(getResources().getString(R.string.prefStatus),"logout");
                     }
                     editor.apply();
-                    finish();
+                    final Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    TimerTask tarea = new TimerTask() {
+                        @Override
+                        public void run() {
+                            LoginActivity.this.startActivity(intent);
+                            LoginActivity.this.finish();
+                        }
+                    };
+                    Timer tiempo = new Timer();
+                    tiempo.schedule(tarea,1090);
                 }
                 else{
                     Toast.makeText(LoginActivity.this, res, Toast.LENGTH_SHORT).show();

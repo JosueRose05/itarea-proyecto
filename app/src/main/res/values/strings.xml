@@ -12,7 +12,7 @@
     <string name="usuario">Usuario</string>
     <string name="apellido">Apellidos</string>
     <string name="matricula">Matricula</string>
-    <string name="Salon">Encuentra tu salón</string>
+    <string name="Salon">Codigo de invitacion</string>
     <string name="anadir">Añadir</string>
     <string name="cerrar">Cerrar Sesión</string>
     <string name="act">Actividades Pendientes De</string>
@@ -20,6 +20,7 @@
     <string name="regresar">Regresar</string>
     <string name="delGrupo">Eliminar Grupo</string>
     <string name="codInv">Codigo de invitacion</string>
+    <string name="ingSalon">Ingresar</string>
 
     <string name="Salon1">Salón1</string>
     <string name="Salon2">Salón2</string>

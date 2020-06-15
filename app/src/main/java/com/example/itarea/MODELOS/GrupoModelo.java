@@ -19,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.itarea.DB.DB;
+import com.example.itarea.LoginActivity;
+import com.example.itarea.MenuActivity;
 import com.example.itarea.MySingleton;
 import com.example.itarea.PendientesActivity;
 import com.example.itarea.R;
@@ -29,6 +31,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GrupoModelo extends DB {
     private int idGrupo;
@@ -161,6 +165,20 @@ public class GrupoModelo extends DB {
         SharedPreferences.Editor cargar = preferencias.edit();
         cargar.putString("admin", "0");//guardamos que el usuario elimino el grupo
         cargar.commit();
+    }
+
+    public void ingresarGrupo(int _matricula, int cod){
+        ejecutarWebService(url+"entrarGrupo.php?matricula="+_matricula+"&idGrupo="+cod, activity);
+        final Intent intent = new Intent(activity, MenuActivity.class);
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        };
+        Timer tiempo = new Timer();
+        tiempo.schedule(tarea,1090);
     }
 
     public int getIdGrupo() {
