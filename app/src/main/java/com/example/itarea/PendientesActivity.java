@@ -3,6 +3,7 @@ package com.example.itarea;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,8 @@ public class PendientesActivity extends AppCompatActivity {
     int idGrupo;
     String semestre;
     String idCarrera;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,10 @@ public class PendientesActivity extends AppCompatActivity {
                 startActivity(intent);//No hay que terminar esta activity, si no vale verga
                 break;
             case R.id.itmCerrar:
-                Intent intent2 = new Intent(PendientesActivity.this, LoginActivity.class);
-                startActivity(intent2);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getResources().getString(R.string.prefStatus),"logout");
+                editor.apply();
+                startActivity(new Intent(PendientesActivity.this,LoginActivity.class));
                 finish();
                 break;
         }
