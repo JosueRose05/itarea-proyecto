@@ -10,9 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.itarea.MODELOS.ActividadModelo;
 import com.example.itarea.MODELOS.AlumnoModelo;
 import com.example.itarea.MODELOS.GrupoModelo;
 
@@ -26,6 +29,7 @@ public class PendientesActivity extends AppCompatActivity {
     int idGrupo;
     String semestre;
     String idCarrera;
+    TableLayout tabla;
 
     SharedPreferences sharedPreferences;
 
@@ -34,22 +38,28 @@ public class PendientesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendientes);
 
-        tvTitulo = (TextView) findViewById(R.id.tvActividades);
-        Bundle parametros = this.getIntent().getExtras();
-        semestre = parametros.getString("semestre");
-        idGrupo = Integer.parseInt(parametros.getString("idGrupo"));
-        String nombreG = parametros.getString("nombreG");
-        idCarrera = parametros.getString("idCa");
-        tvTitulo.setText(tvTitulo.getText().toString() + "\n"+ nombreG);
-        //Si podemos obtener los datos basicos del grupo, nos ahorramos una consulta
+        ActividadModelo actividades = new ActividadModelo(this);
+        AlumnoModelo alumno = new AlumnoModelo(this);
+
         btnDelGrupo = (Button) findViewById(R.id.btnDelGrupo);
         btnGetId = (Button) findViewById(R.id.btnGetCodigo);
-        AlumnoModelo alumno = new AlumnoModelo(this);
+        tabla = (TableLayout) findViewById(R.id.tablaActividades);
+        tvTitulo = (TextView) findViewById(R.id.tvActividades);
+
+        Bundle parametros = this.getIntent().getExtras();
+        idGrupo = Integer.parseInt(parametros.getString("idGrupo"));
+        actividades.getTareas(idGrupo, alumno.getMatricula(), tabla);//Obtenemos las tareas y las mostramos
+        semestre = parametros.getString("semestre");
+        idCarrera = parametros.getString("idCa");
+        String nombreG = parametros.getString("nombreG");
+        tvTitulo.setText(tvTitulo.getText().toString() + "\n"+ nombreG);
+        //Si podemos obtener los datos basicos del grupo, nos ahorramos una consulta
         if(alumno.getMatricula() == Integer.parseInt(parametros.getString("mtrAdmin"))){
             btnDelGrupo.setVisibility(View.VISIBLE);
             btnGetId.setVisibility(View.VISIBLE);
         }
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_salon, menu);
@@ -58,7 +68,6 @@ public class PendientesActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
-
         switch(id){
             case R.id.itmAnadir:
                 Intent intent = new Intent(PendientesActivity.this, TareaActivity.class);
@@ -79,18 +88,8 @@ public class PendientesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editar(View view){
-        Intent intent = new Intent(PendientesActivity.this, TareaActivity.class);
-        startActivity(intent);
-        finish();
-    }
     public void regresar(View view){
         Intent intent = new Intent(PendientesActivity.this, MenuActivity.class);
-        startActivity(intent);
-        finish();
-    }
-    public void actividades(View view){
-        Intent intent = new Intent(PendientesActivity.this, ActividadActivity.class);
         startActivity(intent);
         finish();
     }
