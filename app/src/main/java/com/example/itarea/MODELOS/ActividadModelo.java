@@ -73,6 +73,10 @@ public class ActividadModelo extends DB {
         ejecutarWebService(url+"updateTarea.php?id="+_idA+"&nombre="+_nombre+"&desc="+_descripcion+"&tipo="+_tipo+"&fecha="+_fecha, activity);
     }
 
+    public void updateStatus(int _matricula, int _idAct, int _status){
+        ejecutarWebService(url+"updateStatusTarea.php?matricula="+_matricula+"&idAct="+_idAct+"&status="+_status, activity);
+    }
+
     public void getTareas(final int idGrupo, final int _matricula, final TableLayout tabla){
         StringRequest request = new StringRequest(Request.Method.POST, url+"getTareas.php", new Response.Listener<String>() {
             @Override

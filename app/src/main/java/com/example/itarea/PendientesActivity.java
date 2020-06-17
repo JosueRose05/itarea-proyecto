@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -49,6 +50,7 @@ public class PendientesActivity extends AppCompatActivity {
     String idCarrera;
     TableLayout tabla;
     ActividadModelo actividades = new ActividadModelo(this);
+    AlumnoModelo alumno = new AlumnoModelo(this);
 
     SharedPreferences sharedPreferences;
 
@@ -56,9 +58,6 @@ public class PendientesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendientes);
-
-
-        AlumnoModelo alumno = new AlumnoModelo(this);
 
         btnDelGrupo = (Button) findViewById(R.id.btnDelGrupo);
         btnGetId = (Button) findViewById(R.id.btnGetCodigo);
@@ -192,6 +191,7 @@ public class PendientesActivity extends AppCompatActivity {
         //Formato de los botones
         if(size>0){
             for (int i= 0; i<size; i+=4){
+                final int idAct = Integer.parseInt(String.valueOf(datosActividades.get(i)));
                 TableRow row = new TableRow(this);
                 row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
                 row.setId(i);
@@ -231,7 +231,14 @@ public class PendientesActivity extends AppCompatActivity {
                 checar.setBackgroundColor(Color.DKGRAY);
                 checar.setTextColor(Color.WHITE);
                 checar.setHintTextColor(Color.WHITE);
-
+                checar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if ( isChecked ) 
+                            actividades.updateStatus(alumno.getMatricula(), idAct, 1);
+                        else
+                            actividades.updateStatus(alumno.getMatricula(), idAct, 0);
+                    }
+                });
                 row.addView(boton);
                 row.addView(borrar);
                 row.addView(checar);
@@ -267,6 +274,8 @@ public class PendientesActivity extends AppCompatActivity {
             actividades.delTarea(Integer.parseInt(idA));
         }
     };
+
+
 
     public void showEmptyMaterias(TableLayout t){
         TableRow row = new TableRow(this);
