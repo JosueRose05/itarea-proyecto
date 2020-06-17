@@ -13,9 +13,9 @@ import com.android.volley.toolbox.Volley;
 public class DB {
 
     //Rose
-    protected String url = "http://192.168.0.7:80/itarea/";
+    //protected String url = "http://192.168.0.7:80/itarea/";
     //Leo
-    //protected String url = "http://192.168.1.70:80/itarea/";
+    protected String url = "http://192.168.1.70:80/itarea/";
 
     public void ejecutarWebService(String url, final String msg, final Activity activity){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

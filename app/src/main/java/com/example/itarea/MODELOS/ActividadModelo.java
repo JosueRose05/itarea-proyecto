@@ -3,6 +3,7 @@ package com.example.itarea.MODELOS;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.CompoundButtonCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -32,6 +36,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.security.AccessController.getContext;
 
 public class ActividadModelo extends DB {
     private int idActividad;
@@ -106,26 +112,38 @@ public class ActividadModelo extends DB {
                 //Personalizando botones
                 boton.setText(""+datosActividades.get(i+1));
                 boton.setTextColor(Color.WHITE);
+
                 boton.setBackgroundResource(R.drawable.input);
                 TableLayout.LayoutParams parametros = new TableLayout.LayoutParams();
                 boton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 //0=id actividad 1=nombre 2=estado
                 boton.setContentDescription(""+datosActividades.get(i));
                 boton.setOnClickListener(eventoActividad);
+                boton.setWidth(550);
+                boton.setMaxWidth(550);
+                boton.setMinWidth(550);
 
                 //Añadimos el boton de eliminar
                 Button borrar  = new Button(activity);
                 borrar.setText("Borrar");
                 borrar.setTextColor(Color.WHITE);
+                borrar.setMinWidth(100);
                 borrar.setBackgroundResource(R.drawable.input);
                 borrar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 borrar.setContentDescription(""+datosActividades.get(i)+"_"+i);
                 borrar.setOnClickListener(eventoBorrar);
+                borrar.setWidth(200);
+                borrar.setMaxWidth(200);
+                borrar.setMinWidth(200);
 
                 //Añadimos el checkbox
                 CheckBox checar = new CheckBox(activity);
                 checar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-                checar.setBackgroundColor(Color.GRAY);
+                checar.setBackgroundColor(Color.DKGRAY);
+                checar.setTextColor(Color.WHITE);
+                checar.setHintTextColor(Color.WHITE);
+
+
                 checar.setContentDescription(""+datosActividades.get(i+2));
                 if(datosActividades.get(i+2).equals("1"))
                     checar.setChecked(true);
