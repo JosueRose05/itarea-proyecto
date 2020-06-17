@@ -3,6 +3,7 @@ package com.example.itarea.MODELOS;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//<<<<<<< HEAD
 import androidx.fragment.app.FragmentManager;
+//=======
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.CompoundButtonCompat;
+//>>>>>>> 926e81a0d3134601f9e48a5936340ba05d7a9183
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -38,6 +44,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import static java.security.AccessController.getContext;
+
 public class ActividadModelo extends DB {
     private int idActividad;
     private String nombre;
@@ -53,13 +61,15 @@ public class ActividadModelo extends DB {
     }
 
     public void crearTarea(String nombre, String tipo, String fechaL, String desc, String materia, int idG){
-        //nombre, tipo, fecha_limite, descripcion, id_materia, id_grupo
+        //nombre, tipo, fecha_limite, descripcion, nombre materia, id_grupo
         ejecutarWebService(url+"crearTarea.php?nombre="+nombre+"&tipo="+tipo+"&fecha="+fechaL+"&descripcion="+desc+"&materia="+materia+"&id_grupo="+idG+"", activity);
     }
 
     public String getUrl(){
         return this.url;
     }
+
+
 
     public void getTareas(final int idGrupo, final int _matricula, final TableLayout tabla){
         StringRequest request = new StringRequest(Request.Method.POST, url+"getTareas.php", new Response.Listener<String>() {
@@ -115,26 +125,38 @@ public class ActividadModelo extends DB {
                 //Personalizando botones
                 boton.setText(""+datosActividades.get(i+1));
                 boton.setTextColor(Color.WHITE);
+
                 boton.setBackgroundResource(R.drawable.input);
                 TableLayout.LayoutParams parametros = new TableLayout.LayoutParams();
                 boton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 //0=id actividad 1=nombre 2=estado
                 boton.setContentDescription(""+datosActividades.get(i));
                 boton.setOnClickListener(eventoActividad);
+                boton.setWidth(550);
+                boton.setMaxWidth(550);
+                boton.setMinWidth(550);
 
                 //Añadimos el boton de eliminar
                 Button borrar  = new Button(activity);
                 borrar.setText("Borrar");
                 borrar.setTextColor(Color.WHITE);
+                borrar.setMinWidth(100);
                 borrar.setBackgroundResource(R.drawable.input);
                 borrar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 borrar.setContentDescription(""+datosActividades.get(i)+"_"+i);
                 borrar.setOnClickListener(eventoBorrar);
+                borrar.setWidth(200);
+                borrar.setMaxWidth(200);
+                borrar.setMinWidth(200);
 
                 //Añadimos el checkbox
                 CheckBox checar = new CheckBox(activity);
                 checar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-                checar.setBackgroundColor(Color.GRAY);
+                checar.setBackgroundColor(Color.DKGRAY);
+                checar.setTextColor(Color.WHITE);
+                checar.setHintTextColor(Color.WHITE);
+
+
                 checar.setContentDescription(""+datosActividades.get(i+2));
                 if(datosActividades.get(i+2).equals("1"))
                     checar.setChecked(true);
@@ -152,8 +174,6 @@ public class ActividadModelo extends DB {
         public void onClick(View v) {
             Button botonPrecionado = (Button) v;
             String idAct = String.valueOf(botonPrecionado.getContentDescription());
-            PendientesActivity p = new PendientesActivity();
-            p.modificarTarea(Integer.parseInt(String.valueOf(botonPrecionado.getContentDescription())));
         }
     };
 

@@ -35,7 +35,7 @@ public class DB {
         requestQueue.add(stringRequest);
     }
 
-    public void ejecutarWebService(String url, Activity activity){
+    public void ejecutarWebService(String url, final Activity activity){
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -43,6 +43,7 @@ public class DB {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity, "Ups, ocurrio un error", Toast.LENGTH_SHORT).show();
             }
         }){
 

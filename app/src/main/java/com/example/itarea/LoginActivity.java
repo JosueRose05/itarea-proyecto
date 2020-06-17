@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         String loginStatus = sharedPreferences.getString(getResources().getString(R.string.prefStatus),"");
         if (loginStatus.equals("loggeado")){
-            Toast.makeText(LoginActivity.this, loginStatus, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
             startActivity(intent);
             finish();
@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     editor.apply();
                     final Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                     TimerTask tarea = new TimerTask() {
                         @Override
                         public void run() {

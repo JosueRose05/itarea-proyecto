@@ -132,21 +132,18 @@ public class PendientesActivity extends AppCompatActivity {
         Toast.makeText(this, "Codigo de invitacion: "+idGrupo, Toast.LENGTH_LONG).show();
     }
 
-    public void modificarTarea(int _idAct){
+    public void modificarTarea(int _idAct, int _idM){
         FragmentManager manejador = getSupportFragmentManager();
         FragmentTransaction transaction = manejador.beginTransaction();
         Fragment mostrar = new ModificarTareaFragment();
 
         Bundle datos = new Bundle();
         datos.putInt("idAct", _idAct);
+        datos.putInt("idM", _idM);
         mostrar.setArguments(datos);
         transaction.replace(R.id.linMostrarFragment, mostrar);
         transaction.commit();
     }
-
-
-
-
 
     public void getTareas(final int idGrupo, final int _matricula, final TableLayout tabla){
         String url = actividades.getUrl();
@@ -162,6 +159,7 @@ public class PendientesActivity extends AppCompatActivity {
                             datosActividades.add(datos.getJSONObject(i).getString("id_actividad"));
                             datosActividades.add(datos.getJSONObject(i).getString("nombre"));
                             datosActividades.add(datos.getJSONObject(i).getString("estado"));
+                            datosActividades.add(datos.getJSONObject(i).getString("id_materia"));
                             i++;
                         }
                         mostrarBotones(tabla, datosActividades, datosActividades.size());
@@ -193,7 +191,7 @@ public class PendientesActivity extends AppCompatActivity {
     public void mostrarBotones(TableLayout tabla, ArrayList datosActividades, int size){
         //Formato de los botones
         if(size>0){
-            for (int i= 0; i<size; i+=3){
+            for (int i= 0; i<size; i+=4){
                 TableRow row = new TableRow(this);
                 row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
                 row.setId(i);
@@ -206,17 +204,22 @@ public class PendientesActivity extends AppCompatActivity {
                 TableLayout.LayoutParams parametros = new TableLayout.LayoutParams();
                 boton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 //0=id actividad 1=nombre 2=estado
-                boton.setContentDescription(""+datosActividades.get(i));
+                boton.setContentDescription(datosActividades.get(i)+"_"+datosActividades.get(i+3));
                 boton.setOnClickListener(eventoActividad);
+                boton.setWidth(300);
 
                 //Añadimos el boton de eliminar
                 Button borrar  = new Button(this);
                 borrar.setText("Borrar");
                 borrar.setTextColor(Color.WHITE);
+                borrar.setMinWidth(100);
                 borrar.setBackgroundResource(R.drawable.input);
                 borrar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 borrar.setContentDescription(""+datosActividades.get(i)+"_"+i);
                 borrar.setOnClickListener(eventoBorrar);
+                borrar.setWidth(200);
+                borrar.setMaxWidth(200);
+                borrar.setMinWidth(200);
 
                 //Añadimos el checkbox
                 CheckBox checar = new CheckBox(this);
@@ -225,6 +228,9 @@ public class PendientesActivity extends AppCompatActivity {
                 checar.setContentDescription(""+datosActividades.get(i+2));
                 if(datosActividades.get(i+2).equals("1"))
                     checar.setChecked(true);
+                checar.setBackgroundColor(Color.DKGRAY);
+                checar.setTextColor(Color.WHITE);
+                checar.setHintTextColor(Color.WHITE);
 
                 row.addView(boton);
                 row.addView(borrar);
@@ -237,8 +243,13 @@ public class PendientesActivity extends AppCompatActivity {
     private View.OnClickListener eventoActividad = new View.OnClickListener() {
         public void onClick(View v) {
             Button botonPrecionado = (Button) v;
-            String idAct = String.valueOf(botonPrecionado.getContentDescription());
-            modificarTarea(Integer.parseInt(idAct));
+            String mystring = String.valueOf(botonPrecionado.getContentDescription());
+            String arr[] = mystring.split("_", 2);//Obtenemos los datos del arrayList
+            String idAct = arr[0];
+            String idM = arr[1];
+
+
+            modificarTarea(Integer.parseInt(idAct), Integer.parseInt(idM));
         }
     };
 
