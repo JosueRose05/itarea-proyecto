@@ -1,24 +1,42 @@
 package com.example.itarea;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.itarea.MODELOS.ActividadModelo;
 import com.example.itarea.MODELOS.AlumnoModelo;
 import com.example.itarea.MODELOS.GrupoModelo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +48,7 @@ public class PendientesActivity extends AppCompatActivity {
     String semestre;
     String idCarrera;
     TableLayout tabla;
+    ActividadModelo actividades = new ActividadModelo(this);
 
     SharedPreferences sharedPreferences;
 
@@ -38,7 +57,7 @@ public class PendientesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendientes);
 
-        ActividadModelo actividades = new ActividadModelo(this);
+
         AlumnoModelo alumno = new AlumnoModelo(this);
 
         btnDelGrupo = (Button) findViewById(R.id.btnDelGrupo);
@@ -48,7 +67,7 @@ public class PendientesActivity extends AppCompatActivity {
 
         Bundle parametros = this.getIntent().getExtras();
         idGrupo = Integer.parseInt(parametros.getString("idGrupo"));
-        actividades.getTareas(idGrupo, alumno.getMatricula(), tabla);//Obtenemos las tareas y las mostramos
+        getTareas(idGrupo, alumno.getMatricula(), tabla);//Obtenemos las tareas y las mostramos
         semestre = parametros.getString("semestre");
         idCarrera = parametros.getString("idCa");
         String nombreG = parametros.getString("nombreG");
@@ -112,4 +131,141 @@ public class PendientesActivity extends AppCompatActivity {
     public void getCodigoInv(View view){
         Toast.makeText(this, "Codigo de invitacion: "+idGrupo, Toast.LENGTH_LONG).show();
     }
+
+    public void modificarTarea(int _idAct){
+        FragmentManager manejador = getSupportFragmentManager();
+        FragmentTransaction transaction = manejador.beginTransaction();
+        Fragment mostrar = new ModificarTareaFragment();
+
+        Bundle datos = new Bundle();
+        datos.putInt("idAct", _idAct);
+        mostrar.setArguments(datos);
+        transaction.replace(R.id.linMostrarFragment, mostrar);
+        transaction.commit();
+    }
+
+
+
+
+
+    public void getTareas(final int idGrupo, final int _matricula, final TableLayout tabla){
+        String url = actividades.getUrl();
+        StringRequest request = new StringRequest(Request.Method.POST, url+"getTareas.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (!response.equals("0")){
+                    int i = 0;
+                    try {
+                        JSONArray datos = new JSONArray(new String(response));
+                        ArrayList<String> datosActividades = new ArrayList<String>();
+                        while( i< datos.length()){
+                            datosActividades.add(datos.getJSONObject(i).getString("id_actividad"));
+                            datosActividades.add(datos.getJSONObject(i).getString("nombre"));
+                            datosActividades.add(datos.getJSONObject(i).getString("estado"));
+                            i++;
+                        }
+                        mostrarBotones(tabla, datosActividades, datosActividades.size());
+                        //mostrarBotones(botonesLayout, datosGrupos, datosGrupos.size());
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }else {
+                    showEmptyMaterias(tabla);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> param = new HashMap<>();
+                param.put("matricula", String.valueOf(_matricula));
+                param.put("idGrupo", String.valueOf(idGrupo));
+                return param;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getmInstance(this).addToRequestQueue(request);
+    }
+
+    public void mostrarBotones(TableLayout tabla, ArrayList datosActividades, int size){
+        //Formato de los botones
+        if(size>0){
+            for (int i= 0; i<size; i+=3){
+                TableRow row = new TableRow(this);
+                row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+                row.setId(i);
+
+                Button boton = new Button(this);
+                //Personalizando botones
+                boton.setText(""+datosActividades.get(i+1));
+                boton.setTextColor(Color.WHITE);
+                boton.setBackgroundResource(R.drawable.input);
+                TableLayout.LayoutParams parametros = new TableLayout.LayoutParams();
+                boton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                //0=id actividad 1=nombre 2=estado
+                boton.setContentDescription(""+datosActividades.get(i));
+                boton.setOnClickListener(eventoActividad);
+
+                //Añadimos el boton de eliminar
+                Button borrar  = new Button(this);
+                borrar.setText("Borrar");
+                borrar.setTextColor(Color.WHITE);
+                borrar.setBackgroundResource(R.drawable.input);
+                borrar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                borrar.setContentDescription(""+datosActividades.get(i)+"_"+i);
+                borrar.setOnClickListener(eventoBorrar);
+
+                //Añadimos el checkbox
+                CheckBox checar = new CheckBox(this);
+                checar.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                checar.setBackgroundColor(Color.GRAY);
+                checar.setContentDescription(""+datosActividades.get(i+2));
+                if(datosActividades.get(i+2).equals("1"))
+                    checar.setChecked(true);
+
+                row.addView(boton);
+                row.addView(borrar);
+                row.addView(checar);
+                tabla.addView(row);
+            }
+        }
+    }
+
+    private View.OnClickListener eventoActividad = new View.OnClickListener() {
+        public void onClick(View v) {
+            Button botonPrecionado = (Button) v;
+            String idAct = String.valueOf(botonPrecionado.getContentDescription());
+            modificarTarea(Integer.parseInt(idAct));
+        }
+    };
+
+    private View.OnClickListener eventoBorrar = new View.OnClickListener() {
+        public void onClick(View v) {
+            Button botonPrecionado = (Button) v;
+            String idAct = String.valueOf(botonPrecionado.getContentDescription());
+            String mystring = String.valueOf(botonPrecionado.getContentDescription());
+            String arr[] = mystring.split("_", 2);//Obtenemos los datos del arrayList
+            String idA = arr[0];
+            String idRow = arr[1];
+            TableRow borrarRow;
+            borrarRow = (TableRow) findViewById(Integer.parseInt(idRow));
+            borrarRow.setVisibility(View.GONE);
+            actividades.delTarea(Integer.parseInt(idA));
+        }
+    };
+
+    public void showEmptyMaterias(TableLayout t){
+        TableRow row = new TableRow(this);
+        TextView textView = new TextView(this);
+        textView.setText("No hay actividades");
+        textView.setTextColor(Color.WHITE);
+        textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+        row.addView(textView);
+        t.addView(row);
+    }
+
+
 }

@@ -94,6 +94,12 @@
             android:orientation="vertical">
 
 
+            <LinearLayout
+                android:id="@+id/linMostrarFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
             <TableLayout
                 android:id="@+id/tablaActividades"
                 android:layout_width="match_parent"
@@ -103,11 +109,6 @@
 
             </TableLayout>
 
-            <fragment
-                android:id="@+id/fragment"
-                android:name="com.example.itarea.ModificarTareaFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

@@ -98,7 +98,7 @@ public class TareaActivity extends AppCompatActivity {
             }
         };
         Timer tiempo = new Timer();
-        tiempo.schedule(tarea,1090);
+        tiempo.schedule(tarea,2090);
     }
     public void regresar(View view){
         finish();

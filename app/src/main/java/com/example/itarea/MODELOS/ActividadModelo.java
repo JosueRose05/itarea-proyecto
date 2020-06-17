@@ -15,6 +15,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -32,6 +34,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class ActividadModelo extends DB {
     private int idActividad;
@@ -50,6 +55,10 @@ public class ActividadModelo extends DB {
     public void crearTarea(String nombre, String tipo, String fechaL, String desc, String materia, int idG){
         //nombre, tipo, fecha_limite, descripcion, id_materia, id_grupo
         ejecutarWebService(url+"crearTarea.php?nombre="+nombre+"&tipo="+tipo+"&fecha="+fechaL+"&descripcion="+desc+"&materia="+materia+"&id_grupo="+idG+"", activity);
+    }
+
+    public String getUrl(){
+        return this.url;
     }
 
     public void getTareas(final int idGrupo, final int _matricula, final TableLayout tabla){
@@ -143,10 +152,8 @@ public class ActividadModelo extends DB {
         public void onClick(View v) {
             Button botonPrecionado = (Button) v;
             String idAct = String.valueOf(botonPrecionado.getContentDescription());
-            Intent intent = new Intent(activity, PendientesActivity.class);//Ver como hacemos para que salga esta madre
-            intent.putExtra("idGrupo", idAct);
-            activity.startActivity(intent);
-            activity.finish();
+            PendientesActivity p = new PendientesActivity();
+            p.modificarTarea(Integer.parseInt(String.valueOf(botonPrecionado.getContentDescription())));
         }
     };
 
