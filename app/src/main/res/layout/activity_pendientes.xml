@@ -102,6 +102,12 @@
 
 
             </TableLayout>
+
+            <fragment
+                android:id="@+id/fragment"
+                android:name="com.example.itarea.ModificarTareaFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 
