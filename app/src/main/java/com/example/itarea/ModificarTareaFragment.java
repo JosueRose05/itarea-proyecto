@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -42,6 +43,8 @@ public class ModificarTareaFragment extends Fragment {
     Button btnAct;
     RadioButton rbT, rbP, rbE;
 
+    int idA, idM;
+
     public ModificarTareaFragment() {
         // Required empty public constructor
     }
@@ -66,8 +69,8 @@ public class ModificarTareaFragment extends Fragment {
         btnAct = (Button) fragTarea.findViewById(R.id.btnAct);
         close = (ImageButton) fragTarea.findViewById(R.id.btnCerrar);
 
-        int idA =  getArguments().getInt("idAct");
-        int idM =  getArguments().getInt("idM");
+        idA =  getArguments().getInt("idAct");
+        idM =  getArguments().getInt("idM");
         getMateriaById(idA, idM);
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,19 @@ public class ModificarTareaFragment extends Fragment {
         btnAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //pass
+                String tipo;
+                if(rbT.isChecked())
+                    tipo = "Tarea";
+                else if (rbP.isChecked())
+                    tipo = "Proyecto";
+                else
+                    tipo = "Examen";
+
+                ActividadModelo act = new ActividadModelo(getActivity());
+                String fecha = etAno.getText().toString() + "-"+etMes.getText().toString()+"-"+etDia.getText().toString();
+                act.updateActividad(idA, etNombre.getText().toString(), etDescripcion.getText().toString(), tipo, fecha);
+                Toast.makeText(getActivity(), "Materia actualizada", Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction().remove(ModificarTareaFragment.this).commitAllowingStateLoss();
             }
         });
 
