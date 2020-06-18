@@ -2,7 +2,6 @@ package com.example.itarea;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +40,6 @@ public class CrearActivity extends AppCompatActivity {
 
         String listaCarreras[] = {"Desarrollo de Software", "Industrial", "Mecatronica", "Diseño Electronico"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_personalizado, listaCarreras);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_inicio, listaCarreras);
         carreras.setAdapter(adapter);
 
         matricula = findViewById(R.id.txtMatricula);
@@ -49,9 +47,7 @@ public class CrearActivity extends AppCompatActivity {
         apellidos = findViewById(R.id.txtApellidos);
         correo = findViewById(R.id.txtCorreo);
         contrasena = findViewById(R.id.txtContrasena);
-
         register = findViewById(R.id.btnCrearCuenta);
-
 
         carreras.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -75,7 +71,6 @@ public class CrearActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +88,7 @@ public class CrearActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-
 
     private void register(final String matriculaa, final String nombrea, final String apellidosa, final String correoa, final String contrasenaa,final String carreraa){
         String uRl = alumno.getUrl() + "registrar_alumno.php";

@@ -19,7 +19,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.itarea.DB.DB;
-import com.example.itarea.LoginActivity;
 import com.example.itarea.MenuActivity;
 import com.example.itarea.MySingleton;
 import com.example.itarea.PendientesActivity;
@@ -183,49 +182,5 @@ public class GrupoModelo extends DB {
         };
         Timer tiempo = new Timer();
         tiempo.schedule(tarea,1090);
-    }
-
-    public int getIdGrupo() {
-        return idGrupo;
-    }
-
-    public void setIdGrupo(int idGrupo) {
-        this.idGrupo = idGrupo;
-    }
-
-    public String getNombre(int _idGrupo) {
-        return null;
-    }
-
-    public int getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
-    }
-
-    public int getMatriculaAdmin() {
-        return matriculaAdmin;
-    }
-
-    public void setMatriculaAdmin(int matriculaAdmin) {
-        this.matriculaAdmin = matriculaAdmin;
-    }
-
-    public int getNumAlumnos() {
-        return numAlumnos;
-    }
-
-    public void setNumAlumnos(int numAlumnos) {
-        this.numAlumnos = numAlumnos;
-    }
-
-    public int getIdCarrera() {
-        return idCarrera;
-    }
-
-    public void setIdCarrera(int idCarrera) {
-        this.idCarrera = idCarrera;
     }
 }

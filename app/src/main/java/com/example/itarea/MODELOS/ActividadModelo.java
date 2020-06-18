@@ -1,50 +1,8 @@
 package com.example.itarea.MODELOS;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
-
-//<<<<<<< HEAD
-import androidx.fragment.app.FragmentManager;
-//=======
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.CompoundButtonCompat;
-//>>>>>>> 926e81a0d3134601f9e48a5936340ba05d7a9183
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.itarea.DB.DB;
-import com.example.itarea.MySingleton;
-import com.example.itarea.PendientesActivity;
-import com.example.itarea.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import static java.security.AccessController.getContext;
 
 public class ActividadModelo extends DB {
     private int idActividad;
@@ -80,7 +38,4 @@ public class ActividadModelo extends DB {
     public void delTarea(int idTarea){
         ejecutarWebService(url+"deleteTarea.php?idTarea="+idTarea, activity);
     }
-
-
-
 }

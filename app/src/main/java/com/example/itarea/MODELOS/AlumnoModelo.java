@@ -12,8 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class AlumnoModelo extends DB {
     private int matricula;
@@ -92,10 +90,6 @@ public class AlumnoModelo extends DB {
         return Integer.parseInt(preferencias.getString("matricula", ""));
     }
 
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-
     public String getNombre() {
         SharedPreferences preferencias = activity.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return preferencias.getString("nombre", "");
@@ -119,17 +113,9 @@ public class AlumnoModelo extends DB {
         return preferencias.getString("admin", "");
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
     public String getCorreo() {
         SharedPreferences preferencias = activity.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         return preferencias.getString("correo", "");
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public int getIdCarrera() {
@@ -137,7 +123,4 @@ public class AlumnoModelo extends DB {
         return Integer.parseInt(preferencias.getString("carrera", ""));
     }
 
-    public void setIdCarrera(int idCarrera) {
-        this.idCarrera = idCarrera;
-    }
 }

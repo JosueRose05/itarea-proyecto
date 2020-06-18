@@ -69,6 +69,7 @@ public class CreaSalonActivity extends AppCompatActivity {
         GrupoModelo grupo = new GrupoModelo(CreaSalonActivity.this);
         grupo.crearGrupo(nombre, semestre, matricula, carrera);
         final Intent intent = new Intent(CreaSalonActivity.this, MenuActivity.class);
+        Toast.makeText(this, "Creando...", Toast.LENGTH_SHORT).show();
         TimerTask tarea = new TimerTask() {
             @Override
             public void run() {

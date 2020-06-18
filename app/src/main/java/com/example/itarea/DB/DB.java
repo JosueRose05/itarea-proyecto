@@ -11,7 +11,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class DB {
-
     //Rose
     protected String url = "http://192.168.0.7:80/itarea/";
     //Leo
@@ -51,5 +50,4 @@ public class DB {
         RequestQueue requestQueue = Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
     }
-
 }

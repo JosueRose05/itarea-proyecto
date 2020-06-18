@@ -3,12 +3,10 @@ package com.example.itarea;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -19,10 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.itarea.MODELOS.ActividadModelo;
-import com.example.itarea.MODELOS.AlumnoModelo;
 import com.example.itarea.MODELOS.MateriaModelo;
 
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 

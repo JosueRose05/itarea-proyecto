@@ -98,11 +98,8 @@ public class ModificarTareaFragment extends Fragment {
                 getFragmentManager().beginTransaction().remove(ModificarTareaFragment.this).commitAllowingStateLoss();
             }
         });
-
         return fragTarea;
     }
-
-
 
     public void getMateriaById(final int _idA, final int _idM){
         String url = actividad.getUrl();
