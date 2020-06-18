@@ -78,7 +78,7 @@ public class CreaSalonActivity extends AppCompatActivity {
             }
         };
         Timer tiempo = new Timer();
-        tiempo.schedule(tarea,1090);
+        tiempo.schedule(tarea,2090);
     }
     public void regresar(View view){
         Intent intent = new Intent(CreaSalonActivity.this, MenuActivity.class);

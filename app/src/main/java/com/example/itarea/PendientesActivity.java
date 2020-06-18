@@ -116,6 +116,7 @@ public class PendientesActivity extends AppCompatActivity {
         GrupoModelo grupo = new GrupoModelo(this);
         grupo.borrarGrupo(idGrupo);
         final Intent intent = new Intent(this, MenuActivity.class);
+        Toast.makeText(this, "Borrando...", Toast.LENGTH_SHORT).show();
         TimerTask tarea = new TimerTask() {
             @Override
             public void run() {
@@ -124,7 +125,7 @@ public class PendientesActivity extends AppCompatActivity {
             }
         };
         Timer tiempo = new Timer();
-        tiempo.schedule(tarea,1090);
+        tiempo.schedule(tarea,2090);
     }
 
     public void getCodigoInv(View view){
