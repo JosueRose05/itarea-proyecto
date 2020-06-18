@@ -31,7 +31,7 @@ public class TareaActivity extends AppCompatActivity {
     private Spinner materias;
     private EditText etNombre, etDesc;
     private CalendarView calendario;
-    private String fecha;
+    private String fecha="";
     private RadioGroup rbG;
     int pos;
     final String listaMaterias[] = new String[20];
@@ -47,7 +47,7 @@ public class TareaActivity extends AppCompatActivity {
         int idC = Integer.parseInt(parametros.getString("idcarrera"));
         idG = Integer.parseInt(parametros.getString("idGrupo"));
 
-        //Aqui solo se me ocurrio esta pendejada para traer las materias
+        //Aqui traemos las materias en el spinner
         materias = (Spinner) findViewById(R.id.spnMateria);
         final TextView t = new TextView(this);
         MateriaModelo m = new MateriaModelo(this);
@@ -63,7 +63,7 @@ public class TareaActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter = buildAdapter(arr);
                 materias.setAdapter(adapter);
             }
-        }, 2500);
+        }, 3000);
         etNombre = (EditText) findViewById(R.id.txtNombreAct);
         etDesc = (EditText) findViewById(R.id.txtDescripcion);
         rbG = (RadioGroup) findViewById(R.id.RadioGroup1);
@@ -87,18 +87,29 @@ public class TareaActivity extends AppCompatActivity {
         int radioButtonId = rbG.getCheckedRadioButtonId();
         View radioButton = rbG.findViewById(radioButtonId);
         int indice = rbG.indexOfChild(radioButton);
-        RadioButton rb = (RadioButton)  rbG.getChildAt(indice);
-        String tipo = rb.getText().toString();
-        ActividadModelo actividad = new ActividadModelo(TareaActivity.this);
-        actividad.crearTarea(nombre, tipo, fecha, desc, materia, idG);
-        TimerTask tarea = new TimerTask() {
-            @Override
-            public void run() {
-                TareaActivity.this.finish();
-            }
-        };
-        Timer tiempo = new Timer();
-        tiempo.schedule(tarea,2090);
+        String tipo="";
+        if(indice == 0 || indice== 1 || indice == 2){
+            RadioButton rb = (RadioButton)  rbG.getChildAt(indice);
+            tipo = rb.getText().toString();
+        }
+
+        if(nombre.equals("") || tipo.equals("")){
+            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+        } else if(fecha.equals(""))
+            Toast.makeText(this, "Selecciona una fecha valida", Toast.LENGTH_SHORT).show();
+        else {
+            ActividadModelo actividad = new ActividadModelo(TareaActivity.this);
+            actividad.crearTarea(nombre, tipo, fecha, desc, materia, idG);
+            Toast.makeText(this, "Creando tarea...", Toast.LENGTH_SHORT).show();
+            TimerTask tarea = new TimerTask() {
+                @Override
+                public void run() {
+                    TareaActivity.this.finish();
+                }
+            };
+            Timer tiempo = new Timer();
+            tiempo.schedule(tarea,2000);
+        }
     }
     public void regresar(View view){
         finish();

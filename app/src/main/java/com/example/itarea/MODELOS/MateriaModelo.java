@@ -59,14 +59,6 @@ public class MateriaModelo extends DB implements Serializable {
             });
     }
 
-    public int getIdMateria() {
-        return idMateria;
-    }
-
-    public void setIdMateria(int idMateria) {
-        this.idMateria = idMateria;
-    }
-
     public String getNombre() {
         return nombre;
     }

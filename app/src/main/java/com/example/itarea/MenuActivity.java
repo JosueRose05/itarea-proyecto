@@ -65,9 +65,13 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void ingresarSalon(View view){
-        AlumnoModelo alumno = new AlumnoModelo(this);
-        GrupoModelo grupo = new GrupoModelo(this);
-        int codigo = Integer.parseInt(CodI.getText().toString());
-        grupo.ingresarGrupo(alumno.getMatricula(), codigo);
+        if(!CodI.getText().toString().equals("")){
+            Toast.makeText(this, "Ingresando...", Toast.LENGTH_SHORT).show();
+            AlumnoModelo alumno = new AlumnoModelo(this);
+            GrupoModelo grupo = new GrupoModelo(this);
+            int codigo = Integer.parseInt(CodI.getText().toString());
+            grupo.ingresarGrupo(alumno.getMatricula(), codigo);
+        } else
+            Toast.makeText(this, "Ingresa un codigo", Toast.LENGTH_SHORT).show();
     }
 }

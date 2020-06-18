@@ -56,6 +56,8 @@ public class PendientesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pendientes);
 
+        Toast.makeText(this, "Cargando...", Toast.LENGTH_SHORT).show();
+
         btnDelGrupo = (Button) findViewById(R.id.btnDelGrupo);
         btnGetId = (Button) findViewById(R.id.btnGetCodigo);
         tabla = (TableLayout) findViewById(R.id.tablaActividades);
