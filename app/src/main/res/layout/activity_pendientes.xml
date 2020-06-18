@@ -53,6 +53,17 @@
             android:visibility="invisible" />
 
         <Button
+            android:id="@+id/btnSalirGrupo"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/input"
+            android:onClick="salirGurpo"
+            android:text="@string/salirGrupo"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/btnGetCodigo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

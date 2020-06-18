@@ -62,6 +62,10 @@ public class GrupoModelo extends DB {
         cargar.commit();
     }
 
+    public void salirGrupo(int _matricula, int _idGrupo){
+        ejecutarWebService(url+"salirGrupo.php?matricula="+_matricula+"&idGrupo="+_idGrupo, activity);
+    }
+
     public void getGrupos(final int _matricula, final LinearLayout botonesLayout){
         StringRequest request = new StringRequest(Request.Method.POST, url+"getGrupos.php", new Response.Listener<String>() {
             @Override

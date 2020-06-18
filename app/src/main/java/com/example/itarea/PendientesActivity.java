@@ -44,15 +44,12 @@ import java.util.TimerTask;
 public class PendientesActivity extends AppCompatActivity {
 
     TextView tvTitulo;
-    Button btnDelGrupo, btnGetId;
+    Button btnDelGrupo, btnGetId, btnSalir;
     int idGrupo;
-    String semestre;
-    String idCarrera;
+    String semestre, idCarrera;
     TableLayout tabla;
     ActividadModelo actividades = new ActividadModelo(this);
     AlumnoModelo alumno = new AlumnoModelo(this);
-
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +60,7 @@ public class PendientesActivity extends AppCompatActivity {
         btnGetId = (Button) findViewById(R.id.btnGetCodigo);
         tabla = (TableLayout) findViewById(R.id.tablaActividades);
         tvTitulo = (TextView) findViewById(R.id.tvActividades);
+        btnSalir = (Button) findViewById(R.id.btnSalirGrupo);
 
         Bundle parametros = this.getIntent().getExtras();
         idGrupo = Integer.parseInt(parametros.getString("idGrupo"));
@@ -75,7 +73,8 @@ public class PendientesActivity extends AppCompatActivity {
         if(alumno.getMatricula() == Integer.parseInt(parametros.getString("mtrAdmin"))){
             btnDelGrupo.setVisibility(View.VISIBLE);
             btnGetId.setVisibility(View.VISIBLE);
-        }
+        } else
+            btnSalir.setVisibility(View.VISIBLE);
     }
 
 
@@ -129,6 +128,24 @@ public class PendientesActivity extends AppCompatActivity {
 
     public void getCodigoInv(View view){
         Toast.makeText(this, "Codigo de invitacion: "+idGrupo, Toast.LENGTH_LONG).show();
+    }
+
+    public void salirGurpo(View view){
+        GrupoModelo grupo = new GrupoModelo(this);
+        AlumnoModelo alumno = new AlumnoModelo(this);
+        grupo.salirGrupo(alumno.getMatricula(), idGrupo);
+        Toast.makeText(this, "Saliendo...", Toast.LENGTH_SHORT).show();
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(PendientesActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+        Timer tiempo = new Timer();
+        tiempo.schedule(tarea,2500);
+
     }
 
     public void modificarTarea(int _idAct, int _idM){
@@ -233,7 +250,7 @@ public class PendientesActivity extends AppCompatActivity {
                 checar.setHintTextColor(Color.WHITE);
                 checar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if ( isChecked ) 
+                        if ( isChecked )
                             actividades.updateStatus(alumno.getMatricula(), idAct, 1);
                         else
                             actividades.updateStatus(alumno.getMatricula(), idAct, 0);
@@ -254,8 +271,6 @@ public class PendientesActivity extends AppCompatActivity {
             String arr[] = mystring.split("_", 2);//Obtenemos los datos del arrayList
             String idAct = arr[0];
             String idM = arr[1];
-
-
             modificarTarea(Integer.parseInt(idAct), Integer.parseInt(idM));
         }
     };
@@ -275,8 +290,6 @@ public class PendientesActivity extends AppCompatActivity {
         }
     };
 
-
-
     public void showEmptyMaterias(TableLayout t){
         TableRow row = new TableRow(this);
         TextView textView = new TextView(this);
@@ -286,6 +299,4 @@ public class PendientesActivity extends AppCompatActivity {
         row.addView(textView);
         t.addView(row);
     }
-
-
 }

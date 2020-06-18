@@ -53,6 +53,7 @@
     <string name="ano">Año</string>
     <string name="update">Actualizar</string>
     <string name="fecha">Fecha de entrega</string>
+    <string name="salirGrupo">Salir del Grupo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
